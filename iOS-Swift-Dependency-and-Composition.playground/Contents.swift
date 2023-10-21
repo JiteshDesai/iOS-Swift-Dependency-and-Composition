@@ -47,14 +47,7 @@ class RemoteWithLocalallBackFeedLoader: FeedLoader {
     }
     
     func loadFeed(complition: @escaping ([String]) -> Void) {
-        if Reachability.networkAvailable {
-            remoteFeedLoader.loadFeed { loaditem in
-                
-            }
-        } else {
-            localFeedLoader.loadFeed { loaditem in
-                
-            }
-        }
+        let load = Reachability.networkAvailable ? remoteFeedLoader.loadFeed : localFeedLoader.loadFeed
+        load(complition)
     }
 }
